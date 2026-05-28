@@ -1,12 +1,9 @@
 #include <iostream>
-#include <glm/glm.hpp>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-using namespace std;
+#include "core.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    Core core(3, 3, 800, 800, "Physics Penguin");
+    core.gameLoop();
     return 0;
 }

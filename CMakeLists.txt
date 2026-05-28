@@ -24,7 +24,17 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glm glfw)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-add_executable(PhysicsPenguin main.cpp glad.c)
+add_executable(PhysicsPenguin main.cpp glad.c
+    core.h core.cpp
+    events.h events.cpp
+    mesh.h mesh.cpp
+    shader.h shader.cpp
+    test_triangle.frag
+    test_triangle.vert
+    window.h window.cpp
+    input.h input.cpp
+
+)
 target_link_libraries(PhysicsPenguin PRIVATE glm::glm glfw Threads::Threads OpenGL::GL)
 
 include(GNUInstallDirs)
