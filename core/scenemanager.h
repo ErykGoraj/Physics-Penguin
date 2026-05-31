@@ -15,6 +15,8 @@ public:
     void changeScene(std::unique_ptr<Scene> newScene);
     void update(float deltaTime);
     void render();
+    void processInput(GLFWwindow* window, float deltaTime);
+    void processMouseMovement(double xoffset, double yoffset);
 };
 
 #endif // SCENEMANAGER_H

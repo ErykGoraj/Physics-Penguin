@@ -8,10 +8,11 @@
 
 #include "shader.h"
 #include "mesh.h"
-#include "events.h"
+#include "input.h"
 #include "window.h"
 #include "scenemanager.h"
 #include "../scenes/triangletestscene.h"
+#include "../scenes/cubescene3d.h"
 
 class Core
 {
@@ -20,10 +21,15 @@ public:
     ~Core();
     static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
     void gameLoop();
+    static void mouseCallBack(GLFWwindow* window, double xposIn, double yposIn);
 private:
     std::unique_ptr<Window> m_window;
-    Events m_events;
+    Input m_input;
     SceneManager m_scene_manager;
+    float m_delta_time = 0.0f;
+    bool m_first_mouse = true;
+    float m_last_x = 0.0f;
+    float m_last_y = 0.0f;
 
     int initGlad();
 };

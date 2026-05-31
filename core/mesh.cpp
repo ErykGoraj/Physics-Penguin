@@ -44,7 +44,7 @@ void Mesh::setUpVbo(std::size_t vertices_size, const float *vertices, unsigned i
 
 void Mesh::setUpVertexAttributes(const std::vector<VertexAttribute> &attributes)
 {
-    int components_size;
+    int components_size = 0;
 
     for (const auto &vertex_attrib : attributes)
     {
