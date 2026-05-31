@@ -25,16 +25,9 @@ FetchContent_MakeAvailable(glm glfw)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_executable(PhysicsPenguin main.cpp glad.c
-    core.h core.cpp
-    events.h events.cpp
-    mesh.h mesh.cpp
-    shader.h shader.cpp
-    test_triangle.frag
-    test_triangle.vert
-    window.h window.cpp
-    input.h input.cpp
-
-)
+    core/core.cpp core/core.h core/events.cpp core/events.h core/input.cpp core/input.h core/mesh.cpp core/mesh.h core/particle.cpp core/particle.h core/scene.h core/scenemanager.cpp core/scenemanager.h core/shader.cpp core/shader.h core/window.cpp core/window.h
+    scenes/triangletestscene.cpp scenes/triangletestscene.h
+    shaders/test_triangle.frag shaders/test_triangle.vert)
 target_link_libraries(PhysicsPenguin PRIVATE glm::glm glfw Threads::Threads OpenGL::GL)
 
 include(GNUInstallDirs)
