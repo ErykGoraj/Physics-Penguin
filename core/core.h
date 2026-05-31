@@ -10,6 +10,8 @@
 #include "mesh.h"
 #include "events.h"
 #include "window.h"
+#include "scenemanager.h"
+#include "../scenes/triangletestscene.h"
 
 class Core
 {
@@ -19,10 +21,9 @@ public:
     static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
     void gameLoop();
 private:
-    std::unique_ptr<Mesh> m_mesh;
-    std::unique_ptr<Shader> m_shader;
     std::unique_ptr<Window> m_window;
     Events m_events;
+    SceneManager m_scene_manager;
 
     int initGlad();
 };

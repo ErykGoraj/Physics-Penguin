@@ -13,22 +13,7 @@ Core::Core(const int &version_major, const int &version_minor, const int &width,
     glViewport(0, 0, width, height);
     glfwSetFramebufferSizeCallback(m_window->getHandle(), framebuffer_size_callback);
 
-    // !!! Konfiguracja danych
-    float vertices[] = {
-        // pozycja
-        0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f,
-    };
-
-    std::vector<VertexAttribute> attributes = {
-        {0, 3}
-    };
-
-    const char* vs_path = "/home/erykgoraj/Projekty/PhysicsPenguin/test_triangle.vert";
-    const char* fr_path = "/home/erykgoraj/Projekty/PhysicsPenguin/test_triangle.frag";
-    m_mesh = std::make_unique<Mesh>(sizeof(vertices), vertices, attributes, GL_STATIC_DRAW);
-    m_shader = std::make_unique<Shader>(vs_path, fr_path);
+    this->m_scene_manager.changeScene(std::make_unique<TriangleTestScene>());
 }
 
 Core::~Core()
@@ -60,9 +45,8 @@ void Core::gameLoop()
         glClearColor(0.6f, 0.2f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        this->m_shader->use();
-        this->m_mesh->bindVao();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        this->m_scene_manager.update(2.0f);
+        this->m_scene_manager.render();
 
         m_window->swapBuffers();
         m_window->poolEvents();
