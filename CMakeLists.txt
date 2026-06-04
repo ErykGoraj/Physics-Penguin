@@ -36,7 +36,9 @@ add_executable(PhysicsPenguin main.cpp glad.c
     shaders/wood_wall.vert
     shaders/wood_wall.frag
     include/stb_image.h
-    core/camera.h core/camera.cpp)
+    core/camera.h core/camera.cpp
+    README.md
+    kontroler/kontroler.ino)
 target_link_libraries(PhysicsPenguin PRIVATE glm::glm glfw Threads::Threads OpenGL::GL)
 
 include(GNUInstallDirs)
