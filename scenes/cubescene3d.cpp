@@ -37,10 +37,12 @@ void CubeScene3D::init()
     m_shader->use();
     m_shader->setInt("ourTexture", 0);
     m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+    m_controller.init();
 }
 
 void CubeScene3D::update(float deltaTime)
 {
+    sendData = m_controller.getData();
     glm::mat4 projection = glm::perspective(glm::radians(m_camera->m_zoom), (float)800/(float)800, 0.1f, 100.0f);
     m_shader->setMat4("projection", projection);
 
@@ -65,14 +67,8 @@ void CubeScene3D::processInput(GLFWwindow *window, float deltaTime)
         glfwSetWindowShouldClose(window, true);
     }
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        m_camera->processKeyboard(FORWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        m_camera->processKeyboard(BACKWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        m_camera->processKeyboard(LEFT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        m_camera->processKeyboard(RIGHT, deltaTime);
+    // CONTROLLER AND KEYBOARD MOVEMENT
+    m_controller.movement(*m_camera, window, deltaTime);
 }
 
 void CubeScene3D::processMouseMovement(double xoffset, double yoffset)

@@ -21,7 +21,17 @@ FetchContent_Declare(
     URL https://github.com/glfw/glfw/archive/refs/tags/3.4.tar.gz
 )
 
-FetchContent_MakeAvailable(glm glfw)
+FetchContent_Declare(
+    asio
+    GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+    GIT_TAG asio-1-30-2
+)
+
+FetchContent_MakeAvailable(glm glfw asio)
+
+add_library(asio_lib INTERFACE)
+target_include_directories(asio_lib INTERFACE ${asio_SOURCE_DIR}/asio/include)
+target_compile_definitions(asio_lib INTERFACE ASIO_STANDALONE)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_executable(PhysicsPenguin main.cpp glad.c
@@ -38,8 +48,14 @@ add_executable(PhysicsPenguin main.cpp glad.c
     include/stb_image.h
     core/camera.h core/camera.cpp
     README.md
-    kontroler/kontroler.ino)
-target_link_libraries(PhysicsPenguin PRIVATE glm::glm glfw Threads::Threads OpenGL::GL)
+    kontroler/kontroler.ino
+    core/controller.h core/controller.cpp
+
+    core/controller.cpp core/controller.h
+
+
+)
+target_link_libraries(PhysicsPenguin PRIVATE glm::glm glfw asio_lib Threads::Threads OpenGL::GL)
 
 include(GNUInstallDirs)
 install(TARGETS PhysicsPenguin

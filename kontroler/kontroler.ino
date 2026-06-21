@@ -67,7 +67,6 @@ void readIR()
 {
   if (IrReceiver.decode()) {
     uint8_t command = IrReceiver.decodedIRData.command;
-    Serial.println(command);
     delay(100);
     IrReceiver.resume();
     sendData.irCode = command;
@@ -84,9 +83,29 @@ void readJoystick()
   sendData.right.swVal = digitalRead(rightJoystick.swPin);
 }
 
+void sendToPC()
+{
+  Serial.print("$S,");
+  Serial.print(sendData.irCode);
+  Serial.print(",");
+  Serial.print(sendData.left.swVal);
+  Serial.print(",");
+  Serial.print(sendData.left.xVal);
+  Serial.print(",");
+  Serial.print(sendData.left.yVal);
+  Serial.print(",");
+  Serial.print(sendData.right.swVal);
+  Serial.print(",");
+  Serial.print(sendData.right.xVal);
+  Serial.print(",");
+  Serial.print(sendData.right.yVal);
+  Serial.print(",");
+  Serial.println("$E");
+}
+
 void setup() 
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   IrReceiver.begin(irPin, ENABLE_LED_FEEDBACK);
   pinMode(leftJoystick.swPin, INPUT_PULLUP);
   pinMode(rightJoystick.swPin, INPUT_PULLUP);
@@ -110,4 +129,6 @@ void loop()
 {
   readIR();
   readJoystick();
+  sendToPC();
+  delay(20);
 }

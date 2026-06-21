@@ -8,7 +8,6 @@
 
 #include "shader.h"
 #include "mesh.h"
-#include "input.h"
 #include "window.h"
 #include "scenemanager.h"
 #include "../scenes/triangletestscene.h"
@@ -24,7 +23,6 @@ public:
     static void mouseCallBack(GLFWwindow* window, double xposIn, double yposIn);
 private:
     std::unique_ptr<Window> m_window;
-    Input m_input;
     SceneManager m_scene_manager;
     float m_delta_time = 0.0f;
     bool m_first_mouse = true;

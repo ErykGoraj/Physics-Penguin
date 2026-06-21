@@ -11,6 +11,7 @@
 #include "../core/texture.h"
 #include "../core/camera.h"
 #include <glm/glm.hpp>
+#include "../core/controller.h"
 
 class CubeScene3D : public Scene
 {
@@ -27,6 +28,8 @@ private:
     std::unique_ptr<Mesh> m_mesh;
     std::unique_ptr<Texture> m_wood_wall_texture;
     std::unique_ptr<Camera> m_camera;
+    Controller m_controller;
+    SendData sendData;
 };
 
 #endif // CUBESCENE3D_H
