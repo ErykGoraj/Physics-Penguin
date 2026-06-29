@@ -1,13 +1,16 @@
 #include "mesh.h"
 
-Mesh::Mesh(std::size_t vertices_size, const float *vertices, const std::vector<VertexAttribute> &attributes, unsigned int draw_method)
+Mesh::Mesh(std::size_t vertices_size, const std::vector<float> vertices, const std::vector<VertexAttribute> &attributes, unsigned int draw_method, std::size_t indices_size, const std::vector<int> indices)
 {
     setUpVao();
     bindVao();
     setUpVbo(vertices_size, vertices, draw_method);
+    if (!indices.empty()) setUpEbo(indices_size, indices, draw_method);
+
     setUpVertexAttributes(attributes);
     unBindVao();
     unBindVbo();
+    if (!indices.empty()) unBindEbo();
 }
 
 void Mesh::bindVao() const
@@ -20,6 +23,11 @@ void Mesh::bindVbo() const
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 }
 
+void Mesh::bindEbo() const
+{
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+}
+
 void Mesh::unBindVao() const
 {
     glBindVertexArray(0);
@@ -30,16 +38,28 @@ void Mesh::unBindVbo() const
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void Mesh::unBindEbo() const
+{
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
 void Mesh::setUpVao()
 {
     glGenVertexArrays(1, &VAO);
 }
 
-void Mesh::setUpVbo(std::size_t vertices_size, const float *vertices, unsigned int draw_method)
+void Mesh::setUpVbo(std::size_t vertices_size, const std::vector<float> vertices, unsigned int draw_method)
 {
     glGenBuffers(1, &VBO);
     bindVbo();
-    glBufferData(GL_ARRAY_BUFFER, vertices_size, vertices, draw_method);
+    glBufferData(GL_ARRAY_BUFFER, vertices_size, vertices.data(), draw_method);
+}
+
+void Mesh::setUpEbo(std::size_t indices_size, const std::vector<int> indices, unsigned int draw_method)
+{
+    glGenBuffers(1, &EBO);
+    bindEbo();
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_size, indices.data(), draw_method);
 }
 
 void Mesh::setUpVertexAttributes(const std::vector<VertexAttribute> &attributes)

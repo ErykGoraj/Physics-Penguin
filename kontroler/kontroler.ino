@@ -1,6 +1,13 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7789.h>
 #include <IRremote.h>
+#include <DHT.h>
+
+// USUN
+#define DHT_PIN 3
+#define DHT_TYPE DHT11
+
+DHT dht(DHT_PIN, DHT_TYPE);
 
 // Dlatego unit8 ponieważ przyjmuje wartość od 0 do 255
 struct JoystickConfig
@@ -13,7 +20,7 @@ struct JoystickConfig
 // Dlatego int16_t bo ma szerokie pasmo wartośći dla int
 struct JoystickData
 {
-  int16_t xVal;
+  int16_t xVal; 
   int16_t yVal;
   bool swVal;
 };
@@ -123,6 +130,7 @@ void setup()
   screen.println("PHYSICS PENGUIN");
   delay(2000);
   screen.fillScreen(ST77XX_BLACK);
+  dht.begin();
 }
 
 void loop() 
@@ -130,5 +138,6 @@ void loop()
   readIR();
   readJoystick();
   sendToPC();
+  
   delay(20);
 }

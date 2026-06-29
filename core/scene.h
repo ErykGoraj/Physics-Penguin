@@ -13,6 +13,7 @@ public:
     virtual void render() = 0;
     virtual void processInput(GLFWwindow* window, float deltaTime) = 0;
     virtual void processMouseMovement(double xoffset, double yoffset) = 0;
+    virtual bool newScene() = 0;
 };
 
 #endif // SCENE_H

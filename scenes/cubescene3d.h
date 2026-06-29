@@ -22,6 +22,7 @@ public:
     void render() override;
     void processInput(GLFWwindow* window, float deltaTime) override;
     void processMouseMovement(double xoffset, double yoffset) override;
+    bool newScene() override;
 private:
     std::vector<VertexAttribute> attributes;
     std::unique_ptr<Shader> m_shader;
@@ -30,6 +31,7 @@ private:
     std::unique_ptr<Camera> m_camera;
     Controller m_controller;
     SendData sendData;
+    bool CHANGE_SCENE = false;
 };
 
 #endif // CUBESCENE3D_H

@@ -9,13 +9,11 @@ bool firstMouse = true;
 
 void CubeScene3D::init()
 {
-    float vertices[] = {
-        // Trójkąt 1
+    std::vector<float> vertices = {
         -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,  // bottom left
         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,  // bottom right
         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,  // top right
 
-        // Trójkąt 2
         -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,  // bottom left
         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,  // top right
         -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f   // top left
@@ -31,7 +29,7 @@ void CubeScene3D::init()
     const char* fr_path = "/home/erykgoraj/Projekty/PhysicsPenguin/shaders/wood_wall.frag";
 
     const std::string wood_wall_image = "/home/erykgoraj/Projekty/PhysicsPenguin/resources/container.jpg";
-    m_mesh = std::make_unique<Mesh>(sizeof(vertices), vertices, attributes, GL_STATIC_DRAW);
+    m_mesh = std::make_unique<Mesh>(sizeof(float) * vertices.size(), vertices, attributes, GL_STATIC_DRAW);
     m_shader = std::make_unique<Shader>(vs_path, fr_path);
     m_wood_wall_texture = std::make_unique<Texture>(wood_wall_image);
     m_shader->use();
@@ -42,6 +40,9 @@ void CubeScene3D::init()
 
 void CubeScene3D::update(float deltaTime)
 {
+    glClearColor(0.6f, 0.2f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     sendData = m_controller.getData();
     glm::mat4 projection = glm::perspective(glm::radians(m_camera->m_zoom), (float)800/(float)800, 0.1f, 100.0f);
     m_shader->setMat4("projection", projection);
@@ -67,6 +68,10 @@ void CubeScene3D::processInput(GLFWwindow *window, float deltaTime)
         glfwSetWindowShouldClose(window, true);
     }
 
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
+        CHANGE_SCENE = true;
+    }
+
     // CONTROLLER AND KEYBOARD MOVEMENT
     m_controller.movement(*m_camera, window, deltaTime);
 }
@@ -74,4 +79,9 @@ void CubeScene3D::processInput(GLFWwindow *window, float deltaTime)
 void CubeScene3D::processMouseMovement(double xoffset, double yoffset)
 {
     m_camera->processMouseMovement(static_cast<float>(xoffset), static_cast<float>(yoffset));
+}
+
+bool CubeScene3D::newScene()
+{
+    return CHANGE_SCENE;
 }

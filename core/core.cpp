@@ -74,9 +74,10 @@ void Core::gameLoop()
 
         m_scene_manager.processInput(m_window->getHandle(), m_delta_time);
 
-        glClearColor(0.6f, 0.2f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
+        if (this->m_scene_manager.m_current_scene->newScene())
+        {
+            m_scene_manager.changeScene(std::make_unique<TestParticlesScene>());
+        }
         this->m_scene_manager.update(m_delta_time);
         this->m_scene_manager.render();
 

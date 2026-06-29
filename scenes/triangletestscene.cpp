@@ -3,7 +3,7 @@
 void TriangleTestScene::init()
 {
     // !!! Konfiguracja danych
-    float vertices[] = {
+    std::vector<float> vertices = {
         // pozycja
         0.5f, -0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,

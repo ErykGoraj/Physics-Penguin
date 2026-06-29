@@ -12,6 +12,7 @@
 #include "scenemanager.h"
 #include "../scenes/triangletestscene.h"
 #include "../scenes/cubescene3d.h"
+#include "../scenes/testparticlesscene.h"
 
 class Core
 {

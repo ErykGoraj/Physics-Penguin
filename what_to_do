@@ -1,0 +1,9 @@
+// ZROBIONE
+1. Dodaj możliwość zmiany sceny
+
+// DO ZROBIENIA
+2. Uzupełnij scene dla testparticle.cpp
+3. Wygenerowanie wierzchołków dla kuli
+4. Wygenerowanie VAO, VBO, EBO
+5. Wyświetlenie kuli
+6. Przenies mechanike z core do /tools

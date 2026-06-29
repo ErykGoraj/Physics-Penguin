@@ -124,7 +124,7 @@ void Controller::dataStrip(std::string data)
         sendData.right.xVal = std::stoi(getElement(data));
         sendData.right.yVal = std::stoi(getElement(data));
 
-        if (data.substr(0, 2) != "$E")
+        if (data.substr(0, 2) != "$E") // End
         {
             std::cerr << "Broken data frame!";
         }

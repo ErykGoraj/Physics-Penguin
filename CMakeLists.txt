@@ -52,6 +52,14 @@ add_executable(PhysicsPenguin main.cpp glad.c
     core/controller.h core/controller.cpp
 
     core/controller.cpp core/controller.h
+    scenes/testparticlesscene.h scenes/testparticlesscene.cpp
+    what_to_do
+    tools/aa.txt
+    tools/geometry.h tools/geometry.cpp
+    resources/wood.jpg
+    shaders/particle.vert
+    shaders/particle.frag
+
 
 
 )
